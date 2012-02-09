@@ -9,8 +9,12 @@ void pickname(const unsigned int size);
 
 main(int argc, char *argv[])
 {
-	//printf("%s\n",argv[1]);
-	pickname(atoi(argv[1]));
+   // Idiot proof
+	if(argc == 2) {
+      int s = atoi(argv[1]);  // Temporary varible to hold the desire size of the array.
+      if(s > 0)
+         pickname(s);
+   }
 }
 
 void pickname(const unsigned int SIZE)
