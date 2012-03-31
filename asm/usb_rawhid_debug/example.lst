@@ -1,0 +1,290 @@
+   1               		.file	"example.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.__vector_23,"ax",@progbits
+  17               	.global	__vector_23
+  19               	__vector_23:
+  20               	.LFB7:
+  21               	.LSM0:
+  22 0000 1F92      		push __zero_reg__
+  23 0002 0F92      		push r0
+  24 0004 0FB6      		in r0,__SREG__
+  25 0006 0F92      		push r0
+  26 0008 1124      		clr __zero_reg__
+  27 000a 8F93      		push r24
+  28               	/* prologue: Signal */
+  29               	/* frame size = 0 */
+  30               	.LSM1:
+  31 000c 8091 0000 		lds r24,count.1445
+  32 0010 8F5F      		subi r24,lo8(-(1))
+  33 0012 8093 0000 		sts count.1445,r24
+  34 0016 8B37      		cpi r24,lo8(123)
+  35 0018 00F0      		brlo .L3
+  36               	.LSM2:
+  37 001a 1092 0000 		sts count.1445,__zero_reg__
+  38               	.LSM3:
+  39 001e 81E0      		ldi r24,lo8(1)
+  40 0020 8093 0000 		sts do_output,r24
+  41               	.L3:
+  42               	/* epilogue start */
+  43               	.LSM4:
+  44 0024 8F91      		pop r24
+  45 0026 0F90      		pop r0
+  46 0028 0FBE      		out __SREG__,r0
+  47 002a 0F90      		pop r0
+  48 002c 1F90      		pop __zero_reg__
+  49 002e 1895      		reti
+  50               	.LFE7:
+  52               		.section	.text.main,"ax",@progbits
+  53               	.global	main
+  55               	main:
+  56               	.LFB6:
+  57               	.LSM5:
+  58 0000 BF92      		push r11
+  59 0002 CF92      		push r12
+  60 0004 DF92      		push r13
+  61 0006 EF92      		push r14
+  62 0008 FF92      		push r15
+  63 000a 0F93      		push r16
+  64 000c 1F93      		push r17
+  65 000e CF93      		push r28
+  66 0010 DF93      		push r29
+  67               	/* prologue: function */
+  68               	/* frame size = 0 */
+  69               	.LSM6:
+  70 0012 80E8      		ldi r24,lo8(-128)
+  71 0014 8093 6100 		sts 97,r24
+  72 0018 1092 6100 		sts 97,__zero_reg__
+  73               	.LSM7:
+  74 001c 0E94 0000 		call usb_init
+  75               	.L5:
+  76               	.LSM8:
+  77 0020 0E94 0000 		call usb_configured
+  78 0024 8823      		tst r24
+  79 0026 01F0      		breq .L5
+  80 0028 80E1      		ldi r24,lo8(10000)
+  81 002a 97E2      		ldi r25,hi8(10000)
+  82               	.LVL0:
+  83               	.LBB18:
+  84               	.LBB19:
+  85               	.LBB20:
+  86               	.LBB21:
+  87               	.LSM9:
+  88 002c 20E9      		ldi r18,lo8(400)
+  89 002e 31E0      		ldi r19,hi8(400)
+  90               	.L6:
+  91 0030 F901      		movw r30,r18
+  92               	.LVL1:
+  93               	/* #APP */
+  94               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+  95 0032 3197      		1: sbiw r30,1
+  96 0034 01F4      		brne 1b
+  97               	 ;  0 "" 2
+  98               	/* #NOAPP */
+  99               	.LBE21:
+ 100               	.LBE20:
+ 101               	.LSM10:
+ 102 0036 0197      		sbiw r24,1
+ 103               	.LSM11:
+ 104 0038 01F4      		brne .L6
+ 105               	.LBE19:
+ 106               	.LBE18:
+ 107               	.LSM12:
+ 108 003a 14BC      		out 68-32,__zero_reg__
+ 109               	.LSM13:
+ 110 003c 85E0      		ldi r24,lo8(5)
+ 111               	.LVL2:
+ 112 003e 85BD      		out 69-32,r24
+ 113               	.LSM14:
+ 114 0040 81E0      		ldi r24,lo8(1)
+ 115 0042 8093 6E00 		sts 110,r24
+ 116               	.LSM15:
+ 117 0046 80E0      		ldi r24,lo8(__c.1390)
+ 118 0048 90E0      		ldi r25,hi8(__c.1390)
+ 119 004a 0E94 0000 		call print_P
+ 120               	.LVL3:
+ 121 004e EE24      		clr r14
+ 122 0050 FF24      		clr r15
+ 123               	.LVL4:
+ 124               	.LSM16:
+ 125 0052 2FE0      		ldi r18,lo8(15)
+ 126 0054 B22E      		mov r11,r18
+ 127               	.LSM17:
+ 128 0056 9BEA      		ldi r25,lo8(-85)
+ 129 0058 C92E      		mov r12,r25
+ 130               	.LSM18:
+ 131 005a 8DEC      		ldi r24,lo8(-51)
+ 132 005c D82E      		mov r13,r24
+ 133               	.LVL5:
+ 134               	.L18:
+ 135               	.LSM19:
+ 136 005e 80E0      		ldi r24,lo8(buffer)
+ 137 0060 90E0      		ldi r25,hi8(buffer)
+ 138 0062 60E0      		ldi r22,lo8(0)
+ 139 0064 0E94 0000 		call usb_rawhid_recv
+ 140 0068 082F      		mov r16,r24
+ 141               	.LSM20:
+ 142 006a 1816      		cp __zero_reg__,r24
+ 143 006c 04F4      		brge .L7
+ 144               	.LVL6:
+ 145               	.LSM21:
+ 146 006e BAB8      		out 42-32,r11
+ 147               	.LSM22:
+ 148 0070 9BB1      		in r25,43-32
+ 149 0072 8091 0000 		lds r24,buffer
+ 150               	.LVL7:
+ 151 0076 8F70      		andi r24,lo8(15)
+ 152 0078 907F      		andi r25,lo8(-16)
+ 153 007a 892B      		or r24,r25
+ 154 007c 8BB9      		out 43-32,r24
+ 155               	.LSM23:
+ 156 007e 80E0      		ldi r24,lo8(__c.1392)
+ 157 0080 90E0      		ldi r25,hi8(__c.1392)
+ 158 0082 0E94 0000 		call print_P
+ 159               	.LSM24:
+ 160 0086 8091 0000 		lds r24,buffer
+ 161 008a 0E94 0000 		call phex
+ 162               	.LSM25:
+ 163 008e 80E0      		ldi r24,lo8(__c.1394)
+ 164 0090 90E0      		ldi r25,hi8(__c.1394)
+ 165 0092 0E94 0000 		call print_P
+ 166               	.LVL8:
+ 167               	.L7:
+ 168               	.LSM26:
+ 169 0096 8091 0000 		lds r24,do_output
+ 170 009a 8823      		tst r24
+ 171 009c 01F0      		breq .L18
+ 172               	.LSM27:
+ 173 009e 1092 0000 		sts do_output,__zero_reg__
+ 174               	.LSM28:
+ 175 00a2 C092 0000 		sts buffer,r12
+ 176               	.LSM29:
+ 177 00a6 D092 0000 		sts buffer+1,r13
+ 178 00aa C0E0      		ldi r28,lo8(buffer+2)
+ 179 00ac D0E0      		ldi r29,hi8(buffer+2)
+ 180 00ae 10E0      		ldi r17,lo8(0)
+ 181               	.L9:
+ 182               	.LSM30:
+ 183 00b0 812F      		mov r24,r17
+ 184 00b2 0E94 0000 		call analogRead
+ 185               	.LSM31:
+ 186 00b6 9883      		st Y,r25
+ 187               	.LSM32:
+ 188 00b8 8983      		std Y+1,r24
+ 189               	.LSM33:
+ 190 00ba 1F5F      		subi r17,lo8(-(1))
+ 191 00bc 2296      		adiw r28,2
+ 192 00be 1C30      		cpi r17,lo8(12)
+ 193 00c0 01F4      		brne .L9
+ 194 00c2 E0E0      		ldi r30,lo8(buffer+26)
+ 195 00c4 F0E0      		ldi r31,hi8(buffer+26)
+ 196               	.L10:
+ 197               	.LSM34:
+ 198 00c6 1192      		st Z+,__zero_reg__
+ 199               	.LSM35:
+ 200 00c8 80E0      		ldi r24,hi8(buffer+62)
+ 201 00ca E030      		cpi r30,lo8(buffer+62)
+ 202 00cc F807      		cpc r31,r24
+ 203 00ce 01F4      		brne .L10
+ 204               	.LSM36:
+ 205 00d0 F082      		st Z,r15
+ 206               	.LSM37:
+ 207 00d2 E182      		std Z+1,r14
+ 208               	.LSM38:
+ 209 00d4 CF01      		movw r24,r30
+ 210 00d6 CE97      		sbiw r24,62
+ 211 00d8 62E3      		ldi r22,lo8(50)
+ 212 00da 0E94 0000 		call usb_rawhid_send
+ 213               	.LSM39:
+ 214 00de 80E0      		ldi r24,lo8(__c.1402)
+ 215 00e0 90E0      		ldi r25,hi8(__c.1402)
+ 216 00e2 0E94 0000 		call print_P
+ 217               	.LSM40:
+ 218 00e6 C701      		movw r24,r14
+ 219 00e8 0E94 0000 		call phex16
+ 220               	.LSM41:
+ 221 00ec 80E0      		ldi r24,lo8(__c.1404)
+ 222 00ee 90E0      		ldi r25,hi8(__c.1404)
+ 223 00f0 0E94 0000 		call print_P
+ 224               	.LSM42:
+ 225 00f4 802F      		mov r24,r16
+ 226 00f6 0E94 0000 		call phex
+ 227               	.LSM43:
+ 228 00fa 80E0      		ldi r24,lo8(__c.1406)
+ 229 00fc 90E0      		ldi r25,hi8(__c.1406)
+ 230 00fe 0E94 0000 		call print_P
+ 231               	.LSM44:
+ 232 0102 0894      		sec
+ 233 0104 E11C      		adc r14,__zero_reg__
+ 234 0106 F11C      		adc r15,__zero_reg__
+ 235 0108 00C0      		rjmp .L18
+ 236               	.LFE6:
+ 238               	.global	do_output
+ 239               	.global	do_output
+ 240               		.section .bss
+ 243               	do_output:
+ 244 0000 00        		.skip 1,0
+ 245               		.lcomm count.1445,1
+ 246               		.section	.progmem.data,"a",@progbits
+ 249               	__c.1406:
+ 250 0000 0A00      		.string	"\n"
+ 253               	__c.1404:
+ 254 0002 2C20 723D 		.string	", r="
+ 254      00
+ 257               	__c.1402:
+ 258 0007 7472 616E 		.string	"transmit packet "
+ 258      736D 6974 
+ 258      2070 6163 
+ 258      6B65 7420 
+ 258      00
+ 261               	__c.1394:
+ 262 0018 0A00      		.string	"\n"
+ 265               	__c.1392:
+ 266 001a 7265 6365 		.string	"receive packet, buffer[0]="
+ 266      6976 6520 
+ 266      7061 636B 
+ 266      6574 2C20 
+ 266      6275 6666 
+ 269               	__c.1390:
+ 270 0035 4265 6769 		.string	"Begin rawhid example program\n"
+ 270      6E20 7261 
+ 270      7768 6964 
+ 270      2065 7861 
+ 270      6D70 6C65 
+ 271               		.comm buffer,64,1
+ 304               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 example.c
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:2      *ABS*:0000003f __SREG__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:5      *ABS*:00000034 __CCP__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:19     .text.__vector_23:00000000 __vector_23
+                             .bss:00000001 count.1445
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:243    .bss:00000000 do_output
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:55     .text.main:00000000 main
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:269    .progmem.data:00000035 __c.1390
+                            *COM*:00000040 buffer
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:265    .progmem.data:0000001a __c.1392
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:261    .progmem.data:00000018 __c.1394
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:257    .progmem.data:00000007 __c.1402
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:253    .progmem.data:00000002 __c.1404
+C:\Users\Scott\AppData\Local\Temp/ccFxVlri.s:249    .progmem.data:00000000 __c.1406
+
+UNDEFINED SYMBOLS
+usb_init
+usb_configured
+print_P
+usb_rawhid_recv
+phex
+analogRead
+usb_rawhid_send
+phex16
+__do_clear_bss
