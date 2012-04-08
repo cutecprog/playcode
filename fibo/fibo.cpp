@@ -36,11 +36,11 @@ void _fiboD(int &a, int &b)
    // Assumes a is positive
   if(a<2) {
     b = 0;
-    return; // a==1 || a==0
+    return; // a=1,b=0 or a=0,b=0
   }
   a--;
   _fiboD(a,b);
   a+=b;
   b=a-b;
-  return; // return a+b, a
+  return; //  a=a+b, b=a
 }

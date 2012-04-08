@@ -27,7 +27,7 @@ def fiboD(n):
    a,b=_fiboD(n)
    return a
 
-# Actual Dynamic recursion function, note the parameters act as return varibles
+# Actual Dynamic recursion function
 def _fiboD(n):
    '''
    Given an index returns that value of the fibonacci sequence and it's 
