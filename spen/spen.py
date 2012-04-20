@@ -11,34 +11,42 @@ def formatFile(infile, outfile):
     data = "" # Reusing variable because why not?
    
     lineData = lineData[1:] # Right now I'm just ignoring doctype format
-    for s in lineData:
-        data += formatLine(s)
+    data = formatTXT(lineData)
+
     file = open(outfile,"w")
     file.write(data)
-
-def formatLine(s):
-    if s == "":
-        return "-"*85+"\n"
-    elif s[0] == '@':
-        s = s[1:]
-        return setMargin(s,17,74)+"\n\n"
-    elif s[0] == '^':
-        s = s[1:]
-        return setMargin(s,17,74)+"\n\n"
-    elif s[0] == '$':
-        s = s[1:]
-        return setMargin(s,17,74)+"\n\n"
-    elif s[0] == '%':
-        s = s[1:]
-        return setMargin(s,41,74)+"\n"
-    elif s[0] == '(':
-        s += ")"
-        return setMargin(s,34,54)+"\n"
-    elif s[0] == '"':
-        s = s[1:]
-        return setMargin(s,21,61)+"\n\n"
-    else:
-        return "Error: INVALID line start"+"\n"
+    
+def formatTXT(s):
+    data =""
+    length = len(s)
+    i=0
+    while i < length:
+        if s[i] == "":
+            data += "-"*85+"\n"
+        elif s[i][0] == '%':
+            s[i] = s[i][1:]
+            data += setMargin(s[i],41,74)+"\n"
+            i+=1
+            if s[i][0] == '(':
+                s[i] += ")"
+                data += setMargin(s[i],34,54)+"\n"
+                i+=1
+            if s[i][0] == '"':
+                s[i] = s[i][1:] 
+                data += setMargin(s[i],21,61)+"\n\n"
+        elif s[i][0] == '$':
+            s[i] = s[i][1:]
+            data += setMargin(s[i],17,74)+"\n\n"
+        elif s[i][0] == '^':
+            s[i] = s[i][1:]
+            data += setMargin(s[i],17,74)+"\n\n"
+        elif s[i][0] == '@':
+            s[i] = s[i][1:]
+            data += setMargin(s[i],17,74)+"\n\n"
+        else:
+            print "Error on line",i,"Unknown Format Character\n"
+        i += 1
+    return data
 
 def setMargin(str,start,end):
     rowSize = end-start
