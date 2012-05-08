@@ -1,5 +1,7 @@
 #!/bin/python
 
+from sys import stderr
+
 # I know global variables but I think this is a good time for them.
 template='''<!DOCTYPE HTML>
 <html>
@@ -17,9 +19,12 @@ def main():
    test = spen()
    test.add(slug(1, "ANN'S HOUSE", "DAY (NOON)"))
    test.add(action("Ann lays in her room reading a book. And woofs around a whole bunch like crazy woofing."))
-   test.add(dialog("ANN'S MOM", "Yelling from the other room", "Come get dinner sweety!"))
-   f = open("./newfile.html", "w")
-   f.write(test.formatHTML())
+   test.add(dialog("1ANN'S MOM", "Yelling from the other room", "Come get dinner sweety!"))
+   test.add(dialog("2ANN'S MOM", "Yelling from the other room", "Come get dinner sweety!"))
+   #test.delete(5)
+   print test.formatHTML()
+   #f = open("./newfile.html", "w")
+   #f.write(test.formatHTML())
 
 # Generic line
 class line(object):
@@ -91,9 +96,33 @@ class dialog(line):
 class spen(object):
    def __init__(self):
       self.lines = []
+      self.size = 0
       
    def add(self, new_line):
       self.lines.append(new_line)
+      self.size+=1
+      
+   def insert(self, index, new_line):
+      if self.size<index:
+         print >> stderr, "Error: Insert out of range"
+         return
+      #if index==0:
+         
+      
+   def delete(self, index):
+      '''
+      Deletes line at index
+      '''
+      if self.size<index:
+         print >> stderr, "Error: Delete out of range"
+         return
+      if index==0:
+         self.lines = self.lines[1:]
+      elif index==self.size-1:
+         self.lines = self.lines[:self.size-1]
+      else:
+         self.lines = self.lines[0:index]+self.lines[index+1:]
+      size-=1
       
    def formatTXT(self):
       sum_str = ""
