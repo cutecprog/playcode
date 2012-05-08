@@ -1,16 +1,17 @@
 #!/bin/python
 
 # I know global variables but I think this is a good time for them.
-front_template='''<!DOCTYPE HTML>
+template='''<!DOCTYPE HTML>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="./movie.css" />
 </head>
 <body>
-<div id="script">'''
-back_template='''</div>
+<div id="script">
+%s</div>
 </body>
 </html>'''
+division = '<div class="%s">%s\n</div>'
 
 def main():
    test = spen()
@@ -57,18 +58,17 @@ class slug(line):
       str += " - "+self.time
       return line._set_margin(self,str,17,74)
    def formatHTML(self):
-      str = '<div class="slug">'
-      str += "INT." if self.light else "EXT."
+      str = "INT." if self.light else "EXT."
       str += " "+self.content
-      str += " - "+self.time+"\n</div>"
-      return str
+      str += " - "+self.time
+      return division % ("slug", str)
 
 # Action line      
 class action(line):
    def format(self):
       return line._set_margin(self,self.content,17,74)
    def formatHTML(self):
-      return '<div class="action">'+self.content+"\n</div>"
+      return division % ("action", self.content)
 
 # Dialog line      
 class dialog(line):
@@ -82,9 +82,9 @@ class dialog(line):
       str += line._set_margin(self,self.content,21,61)
       return str
    def formatHTML(self):
-      str = '<div class="speaker">'+self.speaker+"\n</div>\n"
-      str += '<div class="para">'+"("+self.para+")\n</div>\n"
-      str += '<div class="dialog">'+self.content+"\n</div>"
+      str = division % ("speaker", self.speaker)+"\n"
+      str += division % ("para", "("+self.para+")")+"\n"
+      str += division % ("dialog", self.content)
       return str
 
 # Main class      
@@ -105,7 +105,7 @@ class spen(object):
       sum_str = ""
       for l in self.lines:
          sum_str += l.formatHTML() + "\n"
-      return front_template + sum_str + back_template
+      return template % sum_str
 
 
 if __name__=="__main__":
