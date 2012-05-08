@@ -1,0 +1,52 @@
+#script {
+   width: 612pt;
+   font-family: monospace;
+   font-size: 12pt;
+}
+
+.slug {
+   margin: 0pt 72pt 12pt 108pt;
+}
+
+.action {
+   margin: 0pt 72pt 12pt 108pt;
+}
+
+.dialog {
+   margin: 0pt 165.6pt 12pt 208.8pt;
+}
+
+.speaker {
+   margin: 0pt 72pt 0pt 302.4pt;
+}
+
+.para {
+   margin: 0pt 208.8pt 0pt 259.2pt;
+}
+
+/*#script {
+   width: 432pt;
+   font-family: monospace;
+   font-size: 12pt;
+}
+
+.slug {
+   margin: 0pt 0pt 12pt 0pt;
+}
+
+.action {
+   margin: 0pt 0pt 12pt 0pt;
+}
+
+.dialog {
+   margin: 0pt 93.6pt 12pt 100.8pt;
+}
+
+.speaker {
+   margin: 0pt 0pt 0pt 194.4pt;
+}
+
+.para {
+   margin: 0pt 136.8pt 0pt 151.2pt;
+}*/
+
