@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{%block title%}{%endblock%}</title>
+    <link rel="stylesheet" href="/media/jquery-ui-1/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
+    <script src="/media/jquery-ui-1/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/media/jquery-ui-1/js/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="/media/js/dialog.js"></script>
+    <script type="text/javascript" src="/media/js/what_to_do.js"></script>
+    <script type="text/javascript" src="/media/js/menu.js"></script>
+    <script type="text/javascript" src="/media/js/wysiwyg.js"></script>
+    <link href="/media/styles/edit.css" type="text/css" rel="stylesheet" />
+</head>
+<body onLoad="iFrameOn();">
+<header>
+    <h1><a href="/profile/"><-</a>|{%block name%}{%endblock%}</h1>
+</header>
+<navbar>
+    <ul class="menu">
+        <li><span>
+            <a href="#">File</a>
+                <ul class="submenu">
+                    <li><a href="#">New</a></li>
+                    <li><a href="#">Share</a></li>
+                    <li><a href="#">Print</a></li>
+                    <li><a href="#">Download</a></li>
+                </ul></span>
+        </li>
+        <li><span>
+            <a href="#">Edit</a>
+                <ul class="submenu">
+                    <li onClick="iUndo()"><a href="#">Undo</a></li>
+                    <li onclick="iRedo()"><a href="#">Redo</a></li>
+                    <li onClick="iBold()"><a href="#">Bold</a></li>
+                    <li onClick="iUnderline()"><a href="#">Underline</a></li>
+                    <li onClick="iItalic()"><a href="#">Italic</a></li>
+                </ul></span>
+        </li>
+        <li><span>
+            <a href="#">View</a>
+                <ul class="submenu">
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">Javascript</a></li>
+                    <li><a href="#">jQuery</a></li>
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">PHP</a></li>
+                </ul></span>
+        </li>
+    </ul>
+</navbar>
+<article>
+    <div id="wysiwyg_cp">
+        <select id="what" onchange="what_to_do()">
+            <option value="0">--Please select--</option>
+            <option value="1">Scene Heading</option>
+            <option value="2">Action</option>
+            <option value="3">Character</option>
+            <option value="4">Dialog</option>
+            <option value="5">Parenthetical</option>
+            <option value="6">Transition</option>
+            <option value="7">Shot</option>
+            <option value="8">Text</option>
+        </select>
+        <span style="padding-left: 5px">|</span>
+        <input type="button" onClick="iBold()" value="B">
+        <input type="button" onClick="iUnderline()" value="U">
+        <input type="button" onClick="iItalic()" value="I">
+        <span style="padding-left: 5px">|</span>
+        <input type="button" onclick="iUndo()" value="Undo">
+        <input type="button" onClick="iRedo()" value="Redo">
+        <span style="padding-left: 5px">|</span>
+        <input type="button" onClick="iFontSize()" value="Font Size">
+    </div>
+</article>
+<section id="written">
+    <form action="" method="post">
+        {%csrf_token%}
+        <textarea name="myTextArea" id="myTextArea" cols="100" rows="14"></textarea>
+        <iframe name="richTextField" id="richTextField"></iframe>
+        <input type="submit" value="Submit">
+    </form>
+</section>
+<footer id="write">{%block write%}{%endblock%}</footer>
+</body>
+</html>
