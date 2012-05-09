@@ -115,6 +115,12 @@ class spen(object):
    def insert(self, index, new_line):
       '''
       Inserts item at index
+      >>> a = spen()
+      >>> a.insert(0,line("Test!"))
+      >>> print a.lines[0].content
+      Test!
+      >>> print a.size
+      1
       '''
       if self.size<index:
          print >> stderr, "Error: Insert out of range"
