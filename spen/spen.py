@@ -17,15 +17,16 @@ template='''<!DOCTYPE HTML>
 division = '<div class="%s">%s\n</div>'
 
 def main():
-   test = spen()
-   test.add(slug(1, "ANN'S HOUSE", "DAY (NOON)"))
-   test.add(action("Ann lays in her room reading a book. And woofs around a whole bunch like crazy woofing."))
-   test.add(dialog("1ANN'S MOM", "Yelling from the other room", "Come get dinner sweety!"))
-   test.add(dialog("2ANN'S MOM", "Yelling from the other room", "Come get dinner sweety!"))
-   #test.delete(5)
-   #print test.formatHTML()
+   screen_play = spen()
+   screen_play.add(slug(1,"Dog House","Day"))
+   screen_play.add(action("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent velit nisl, faucibus vel pellentesque ac, fringilla in ipsum. Sed ac ante in purus rutrum aliquet a eu velit. Nullam sit amet est purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."))
+   screen_play.add(dialog("NYMERIA", "", "Woof, woof!"))
+   screen_play.add(dialog("BRONX (O.S)", "Yelling from inside a dog house", "Ruff ruff ruff ruff!"))
+   screen_play.insert(1, action("The dogs sit in a rainy backyard")) # Inserts line after the second
+   screen_play.delete(2) # Deletes line with vulgar Latin in it
+   #print screen_play.formatHTML()
    f = open("./newfile.html", "w")
-   f.write(test.formatHTML())
+   f.write(screen_play.formatHTML())
 
 # Generic line
 class line(object):
@@ -89,7 +90,8 @@ class dialog(line):
       return str
    def formatHTML(self):
       str = division % ("speaker", self.speaker)+"\n"
-      str += division % ("para", "("+self.para+")")+"\n"
+      if self.para!="":
+         str += division % ("para", "("+self.para+")")+"\n"
       str += division % ("dialog", self.content)
       return str
 
