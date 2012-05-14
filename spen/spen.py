@@ -21,6 +21,7 @@ def main():
    screen_play.add(slug(1,"Dog House","Day"))
    screen_play.add(action("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent velit nisl, faucibus vel pellentesque ac, fringilla in ipsum. Sed ac ante in purus rutrum aliquet a eu velit. Nullam sit amet est purus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."))
    screen_play.add(dialog("NYMERIA", "", "Woof, woof!"))
+   #screen_play.add("NYMERIA")
    screen_play.add(dialog("BRONX (O.S)", "Yelling from inside a dog house", "Ruff ruff ruff ruff!"))
    screen_play.insert(1, action("The dogs sit in a rainy backyard")) # Inserts line after the second
    screen_play.delete(2) # Deletes line with vulgar Latin in it
@@ -36,7 +37,6 @@ class line(object):
    def _set_margin(self,str,start,end):
       rowSize = end-start
       result = ""
-
       while(str!=""):
          if len(str)<rowSize:
             result += (" "*start)+str
@@ -162,8 +162,12 @@ class spen(object):
       
    def formatHTML(self):
       sum_str = ""
-      for l in self.lines:
-         sum_str += l.formatHTML() + "\n"
+      for i, l in enumerate(self.lines):
+         try:
+            sum_str += l.formatHTML() + "\n"
+         except AttributeError:
+            print >> stderr, "Error of spen line %i: Object is not valid" % i
+            return l # This is so they can look at the bad object.
       return template % sum_str
 
 
