@@ -15,17 +15,23 @@ def main():
         print integrate(f, 50, 0, 2)
         print integrate(f, 100, 0, 2)
 
-def integrate(f, n, low, high):
-        """Compute right bound Riemann's sum and return answer
+def integrate(f, n, low, high, mode="r"):
+        """Compute mode bound Riemann's sum and return answer
 
         This function estimates the integral from low to high of a function
-        using right bound rectangles with a certain resolution n.
+        using mode bound rectangles with a certain resolution n.
 
         """
         total = 0
         width = float((high - low)) / n
         i = low
-        while (i < high):
+        if mode == "l":
+                i += width
+                high += width
+        elif mode == "m":
+                i += width / 2
+                high += width /2
+        while i < high:
                 total += f(i)
                 i += width
         return total * width
