@@ -1,22 +1,35 @@
-from math import *
+# Author: Andrea Sarah
+# Version: 12.09.02
 
-"""
-This function estimates the integral of a function using right bound rectangles
-with a certain resolution n.
+def main():
+        print "5.1: 8"
+        print integrate(cos, 10, 0, pi/2)
+        print integrate(cos, 30, 0, pi/2)
+        print integrate(cos, 50, 0, pi/2)
+        print integrate(cos, 100, 0, pi/2)
+        print ""
+        print "5.2: 16"
+        f = lambda x: e**-x**2
+        print integrate(f, 10, 0, 2)
+        print integrate(f, 30, 0, 2)
+        print integrate(f, 50, 0, 2)
+        print integrate(f, 100, 0, 2)
 
-sigma(low, high-1): f(i*width)*width
-where width = (high - low) / n
-"""
 def integrate(f, n, low, high):
-        sig = 0
-        width = (high - low) /n
+        """Compute right bound Riemann's sum and return answer
+
+        This function estimates the integral from low to high of a function
+        using right bound rectangles with a certain resolution n.
+
+        """
+        total = 0
+        width = float((high - low)) / n
         i = low
         while (i < high):
-                sig += f(i)
+                total += f(i)
                 i += width
-        return sig*width
+        return total * width
 
-print integrate(cos, 10, 0, pi/2)
-print integrate(cos, 30, 0, pi/2)
-print integrate(cos, 50, 0, pi/2)
-print integrate(cos, 100, 0, pi/2)
+if __name__=="__main__":
+        from math import *
+        main()
