@@ -2,11 +2,11 @@
 # Version: 12.09.02
 
 def main():
-        f = lambda x: 1/x
-        F = log
+        f = cos
+        F = sin
         low = 1
-        high = 2
-        for i in range(1, 21):
+        high = 100
+        for i in range(1, 20):
                 print i
                 start = clock()
                 tmp = simpson_rule(f, 2**i, low, high) - (F(high) - F(low))
@@ -52,6 +52,6 @@ def riemann_sum(f, n, low, high, mode="m"):
         return total * width
 
 if __name__=="__main__":
-        from math import log
+        from math import *
         from time import clock
         main()
