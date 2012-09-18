@@ -2,61 +2,38 @@
 # Version: 12.09.02
 
 from math import *
+from time import *
 
 def main():
         f = lambda x: 1/x
-        box = 2
-        a = integrate(f, box, 1, 2, "l")
-        b = integrate(f, box, 1, 2, "r")
-        c = integrate(f, box, 1, 2, "m")
-        d = a/6 + b/6 + (2*c/3)
-        print box
-        print d, log(2)-d
-
-        box = 10
-        a = integrate(f, box, 1, 2, "l")
-        b = integrate(f, box, 1, 2, "r")
-        c = integrate(f, box, 1, 2, "m")
-        d = a/6 + b/6 + (2*c/3)
-        print box
-        print d, log(2)-d
-
-        box = 50
-        a = integrate(f, box, 1, 2, "l")
-        b = integrate(f, box, 1, 2, "r")
-        c = integrate(f, box, 1, 2, "m")
-        d = a/6 + b/6 + (2*c/3)
-        print box
-        print d, log(2)-d
-
-        box = 250
-        a = integrate(f, box, 1, 2, "l")
-        b = integrate(f, box, 1, 2, "r")
-        c = integrate(f, box, 1, 2, "m")
-        d = a/6 + b/6 + (2*c/3)
-        print box
-        print d, log(2)-d
+        F = log
+        low = 1
+        high = 20
+        for i in range(1, 21):
+                print i
+                start = clock()
+                tmp = simpson_rule(f, 2**i, low, high) - (F(high) - F(low))
+                end = clock()
+                print "S(%i) = " % 2**i, tmp, end - start
+                start = clock()
+                tmp = riemann_sum(f, 3*2**i, low, high) - (F(high) - F(low))
+                end = clock()
+                print "M(%i) = " % (3*2**i), tmp, end - start 
         
-        
-        """print "5.1: 8"
-        print integrate(cos, 10, 0, pi/2)
-        print integrate(cos, 30, 0, pi/2)
-        print integrate(cos, 50, 0, pi/2)
-        print integrate(cos, 100, 0, pi/2)
-        print ""
-        print "5.2: 16"
-        f = lambda x: e**-x**2
-        print integrate(f, 10, 0, 2)
-        print integrate(f, 30, 0, 2)
-        print integrate(f, 50, 0, 2)
-        print integrate(f, 100, 0, 2)
-        print "Left bound"
-        print integrate(f, 10, 0, 2, "l")
-        print integrate(f, 30, 0, 2, "l")
-        print integrate(f, 50, 0, 2, "l")
-        print integrate(f, 100, 0, 2, "l")"""
 
-def integrate(f, n, low, high, mode="l"):
+def simpson_rule(f, n, low, high):
+        """Use Riemann's sum to compute Simpson's rule and return answer.
+
+        This function estimates the intefral from low to high of a function
+        using Simpson's rule.
+
+        """
+        l = riemann_sum(f, n, low, high, "l")
+        r = riemann_sum(f, n, low, high, "r")
+        m = riemann_sum(f, n, low, high, "m")
+        return (l / 6) + (r / 6) + ((2 * m) / 3)
+
+def riemann_sum(f, n, low, high, mode="m"):
         """Compute mode bound Riemann's sum and return answer.
 
         This function estimates the integral from low to high of a function
