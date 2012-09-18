@@ -1,14 +1,11 @@
 # Author: Andrea Sarah
 # Version: 12.09.02
 
-from math import *
-from time import *
-
 def main():
         f = lambda x: 1/x
         F = log
         low = 1
-        high = 20
+        high = 2
         for i in range(1, 21):
                 print i
                 start = clock()
@@ -55,5 +52,6 @@ def riemann_sum(f, n, low, high, mode="m"):
         return total * width
 
 if __name__=="__main__":
-        from math import *
+        from math import log
+        from time import clock
         main()
