@@ -2,23 +2,23 @@
 # Version: 12.09.02
 
 def main():
-        f = cos
-        F = sin
+        f = lambda x: 1 / x
+        F = log
         low = 1
-        high = 100
-        for i in range(1, 20):
+        high = 2
+        for i in range(1, 21):
                 print i
                 start = clock()
                 tmp = simpson_rule(f, 2**i, low, high) - (F(high) - F(low))
                 end = clock()
                 print "S(%i) = " % 2**i, tmp, end - start
                 start = clock()
-                tmp = riemann_sum(f, 3*2**i, low, high) - (F(high) - F(low))
+                tmp = simpson_rule(f, 2**i, low, high, 0) - (F(high) - F(low))
                 end = clock()
-                print "M(%i) = " % (3*2**i), tmp, end - start 
+                print "S(%i) = " % (2**i), tmp, end - start 
         
 
-def simpson_rule(f, n, low, high):
+def simpson_rule(f, n, low, high, mode=1):
         """Use Riemann's sum to compute Simpson's rule and return answer.
 
         This function estimates the intefral from low to high of a function
@@ -28,7 +28,10 @@ def simpson_rule(f, n, low, high):
         l = riemann_sum(f, n, low, high, "l")
         r = riemann_sum(f, n, low, high, "r")
         m = riemann_sum(f, n, low, high, "m")
-        return (l / 6) + (r / 6) + ((2 * m) / 3)
+        if mode == 1:
+                return (((l + r) / 2) + (2 * m)) / 3
+        else:
+                return (l / 6) + (r / 6) + (2 * m / 3)
 
 def riemann_sum(f, n, low, high, mode="m"):
         """Compute mode bound Riemann's sum and return answer.
