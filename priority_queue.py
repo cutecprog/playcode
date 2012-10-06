@@ -16,13 +16,16 @@ class priority_queue(object):
                         self.data += [value]
                         self.size += 1
                         return
-                for i in range(0, self.size-1):
+                for i in range(0, self.size):
                         if value <= self.data[i]:
                                 self.data = self.data[:i] + [value] + self.data[i:]
                                 self.size += 1
                                 return
 
 def main():
+        """foo = priority_queue([3])
+        foo.add(1)
+        print foo.data"""
         L = priority_queue([54,78,93,103,5003])
         while L.size > 1:
                 print L.data
@@ -30,6 +33,8 @@ def main():
                 print tmp
                 if tmp != 0:
                         L.add(tmp)
+                        print "ADD",L.data
+        print L.data
 
 if __name__=="__main__":
         main()
