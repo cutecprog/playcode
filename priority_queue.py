@@ -1,40 +1,39 @@
 def main():
-        demo()
+        numbers = []
+        for i in range(0,4):
+                numbers += [randint(6,30)]
+        print "Generated numbers:", numbers
+        multiplers_for_common_length(numbers)
 
-def gcd(initial):
+def gcd(args):
+        """Find the greatest common divisor using Euclid's Algorithm.
+
+        """
         L = priority_queue()
-        for n in initial:
+        for n in args:
                 L.add(n)
         while L.size > 1:
                 tmp = L.pop()%L.least()
                 if tmp != 0:
                         L.add(tmp)
         return L.pop()
-def demo():
-        numbers = []
+
+def multiplers_for_common_length(args):
         initial = []
         final = []
         GCD = 1
         product = 1
-
-        # Generation of numbers
-        for i in range(0,4):
-                numbers += [randint(6,30)]
-        print "Generated numbers:", numbers
-        
-        # Algorithm
-        for n in numbers:
-                product *= n
         L = priority_queue()
-        for n in numbers:
+        for n in args:
+                product *= n
+        for n in args:
                 initial += [(product/n)]
-        print "Initial:", initial
+        print "Initial Multipler:", initial
         GCD = gcd(initial)
         print "GCD:", GCD
         for n in initial:
                 final += [n/GCD]
-        print "Minium Factors:", final
-
+        print "Minimum Multipler:", final
 
 class priority_queue(object):
         def __init__(self, values = []):
