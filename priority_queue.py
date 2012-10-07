@@ -1,3 +1,41 @@
+def main():
+        demo()
+
+def gcd(initial):
+        L = priority_queue()
+        for n in initial:
+                L.add(n)
+        while L.size > 1:
+                tmp = L.pop()%L.least()
+                if tmp != 0:
+                        L.add(tmp)
+        return L.pop()
+def demo():
+        numbers = []
+        initial = []
+        final = []
+        GCD = 1
+        product = 1
+
+        # Generation of numbers
+        for i in range(0,4):
+                numbers += [randint(6,30)]
+        print "Generated numbers:", numbers
+        
+        # Algorithm
+        for n in numbers:
+                product *= n
+        L = priority_queue()
+        for n in numbers:
+                initial += [(product/n)]
+        print "Initial:", initial
+        GCD = gcd(initial)
+        print "GCD:", GCD
+        for n in initial:
+                final += [n/GCD]
+        print "Minium Factors:", final
+
+
 class priority_queue(object):
         def __init__(self, values = []):
                 self.data = values
@@ -21,37 +59,6 @@ class priority_queue(object):
                                 self.data = self.data[:i] + [value] + self.data[i:]
                                 self.size += 1
                                 return
-
-def main():
-        # Generation of numbers
-        numbers = []
-        initial = []
-        gcd = 1
-        final = []
-        for i in range(0,4):
-                numbers += [randint(6,30)]
-        print "Generated numbers:", numbers
-        
-        # Algorithm
-        product = 1
-        for n in numbers:
-                product *= n
-        L = priority_queue()
-        for n in numbers:
-                initial += [(product/n)]
-        for n in initial:
-                L.add(n)
-        print "Initial:", initial
-        while L.size > 1:
-                tmp = L.pop()%L.least()
-                if tmp != 0:
-                        L.add(tmp)
-        GCD = L.pop()
-        print "GCD:", GCD
-        for n in initial:
-                final += [n/GCD]
-        print "Minium Factors:", final
-                
 
 if __name__=="__main__":
         from random import randint
