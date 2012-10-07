@@ -1,5 +1,5 @@
 class priority_queue(object):
-        def __init__(self, values):
+        def __init__(self, values = []):
                 self.data = values
                 self.size = len(values)
         def pop(self):
@@ -12,7 +12,7 @@ class priority_queue(object):
         def most(self):
                 return self.data[self.size-1]
         def add(self, value):
-                if value > self.most():
+                if self.size == 0 or value > self.most():
                         self.data += [value]
                         self.size += 1
                         return
@@ -23,18 +23,36 @@ class priority_queue(object):
                                 return
 
 def main():
-        """foo = priority_queue([3])
-        foo.add(1)
-        print foo.data"""
-        L = priority_queue([54,78,93,103,5003])
+        # Generation of numbers
+        numbers = []
+        initial = []
+        gcd = 1
+        final = []
+        for i in range(0,4):
+                numbers += [randint(6,30)]
+        print "Generated numbers:", numbers
+        
+        # Algorithm
+        product = 1
+        for n in numbers:
+                product *= n
+        L = priority_queue()
+        for n in numbers:
+                initial += [(product/n)]
+        for n in initial:
+                L.add(n)
+        print "Initial:", initial
         while L.size > 1:
-                print L.data
                 tmp = L.pop()%L.least()
-                print tmp
                 if tmp != 0:
                         L.add(tmp)
-                        print "ADD",L.data
-        print L.data
+        GCD = L.pop()
+        print "GCD:", GCD
+        for n in initial:
+                final += [n/GCD]
+        print "Minium Factors:", final
+                
 
 if __name__=="__main__":
+        from random import randint
         main()
