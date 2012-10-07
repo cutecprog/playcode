@@ -21,16 +21,12 @@ def gcd(args):
 def multiplers_for_common_length(args):
         initial = []
         final = []
-        GCD = 1
         product = 1
-        L = priority_queue()
         for n in args:
                 product *= n
         for n in args:
                 initial += [(product/n)]
-        print "Initial Multipler:", initial
         GCD = gcd(initial)
-        print "GCD:", GCD
         for n in initial:
                 final += [n/GCD]
         print "Minimum Multipler:", final
