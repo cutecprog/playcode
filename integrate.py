@@ -12,6 +12,7 @@ def main():
         print "Exact:", F(high) - F(low)
         print simpson_rule2([5.8, 20.3, 26.7, 29.0, 27.6, 27.3, 23.8, 20.5, 15.1], 20)
 
+#test
 def simpson_rule2(f, h):
         """Use a list of exact values to compute simpson's rule.
 

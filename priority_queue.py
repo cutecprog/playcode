@@ -1,9 +1,9 @@
 def main():
         numbers = []
-        for i in range(0,4):
+        for i in range(0,16):
                 numbers += [randint(6,30)]
         print "Generated integers:", numbers
-        print "Minimum multiplers:", multiplers_for_common_length(numbers)
+        print "Minimum multiplers:", mcl(numbers)
 
 def gcd(args):
         """Find the greatest common divisor using Euclid's Algorithm.
@@ -18,18 +18,18 @@ def gcd(args):
                         L.add(tmp)
         return L.pop()
 
-def multiplers_for_common_length(args):
+def mcl(args):
         """Find the lowest integer multiplers for all args to be equal. 
 
         """
-        initial = []
-        final = []
         product = 1
         for n in args:
                 product *= n
+        initial = []
         for n in args:
                 initial += [(product/n)]
         GCD = gcd(initial)
+        final = []
         for n in initial:
                 final += [n/GCD]
         return final
