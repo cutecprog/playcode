@@ -1,5 +1,5 @@
 # Author: Andrea Sarah
-# Version: 12.10.04
+# Version: 12.10.11
 
 def main():
         f = lambda x: 1 / x
@@ -15,6 +15,8 @@ def main():
 #test
 def simpson_rule2(f, h):
         """Use a list of exact values to compute simpson's rule.
+
+        h = (b - a)/n
 
         """
         l = len(f)
@@ -60,6 +62,15 @@ def riemann_sum(f, n, low, high, mode="m"):
                 total += f(i)
                 i += width
         return total * width
+
+def derivative(f):
+        """
+        Compute the numerical derivative of a function.
+
+        """
+        def df(x, h=0.1e-5):
+                return ( f(x + h/2) - f(x - h/2) )/h
+        return df
 
 if __name__=="__main__":
         from math import *
