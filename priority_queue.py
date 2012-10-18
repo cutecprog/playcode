@@ -1,9 +1,12 @@
 def main():
-        numbers = []
+        print gcd([9,3])
+        print gcd([9,1])
+        print gcd([9,3])
+        """numbers = []
         for i in range(0,16):
                 numbers += [randint(6,30)]
         print "Generated integers:", numbers
-        print "Minimum multiplers:", mcl(numbers)
+        print "Minimum multiplers:", mcl(numbers)"""
 
 def gcd(args):
         """Find the greatest common divisor using Euclid's Algorithm.

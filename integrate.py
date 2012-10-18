@@ -2,17 +2,9 @@
 # Version: 12.10.11
 
 def main():
-        f = lambda x: 1 / x
-        F = log
-        n = 64
-        low = 1
-        high = 2
-        print "Natural log of 2"
-        print "About:", simpson_rule(f, n, low, high)
-        print "Exact:", F(high) - F(low)
-        print simpson_rule2([5.8, 20.3, 26.7, 29.0, 27.6, 27.3, 23.8, 20.5, 15.1], 20)
+        print simpson_rule([5.8, 20.3, 26.7, 29.0, 27.6, 27.3, 23.8, 20.5, 15.1], 0, 160)
+        print d(log)(2)
 
-#test
 def simpson_rule2(f, h):
         """Use a list of exact values to compute simpson's rule.
 
@@ -28,7 +20,7 @@ def simpson_rule2(f, h):
                         S += 2*f[i]
         return float(S * h) / 3
 
-def simpson_rule(f, n, low, high):
+def simpson_rule(f, low, high, n = 256.):
         """Use function definition to compute Simpson's rule.
 
         This function estimates the integral from low to high of a function
@@ -36,13 +28,15 @@ def simpson_rule(f, n, low, high):
         end point approximations.
 
         """
-        l = riemann_sum(f, n, low, high, "l")
-        r = riemann_sum(f, n, low, high, "r")
-        m = riemann_sum(f, n, low, high, "m")
+        if type(f) == type(list()):
+                return simpson_rule2(f, (high - low)/(len(f)-1))
+        l = riemann_sum(f, low, high, n, "l")
+        r = riemann_sum(f, low, high, n, "r")
+        m = riemann_sum(f, low, high, n, "m")
         t = (l + r) / 2
         return (t + (2 * m)) / 3
 
-def riemann_sum(f, n, low, high, mode="m"):
+def riemann_sum(f, low, high, n = 256., mode = "m"):
         """Compute mode bound Riemann's sum and return answer.
 
         This function estimates the integral from low to high of a function
@@ -63,13 +57,13 @@ def riemann_sum(f, n, low, high, mode="m"):
                 i += width
         return total * width
 
-def derivative(f):
+def d(f, h = 0.1e-5):
         """
         Compute the numerical derivative of a function.
 
         """
-        def df(x, h=0.1e-5):
-                return ( f(x + h/2) - f(x - h/2) )/h
+        def df(x, _h = h):
+                return ( f(x + _h/2) - f(x - _h/2) )/_h
         return df
 
 if __name__=="__main__":
