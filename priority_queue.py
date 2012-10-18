@@ -12,7 +12,7 @@ def gcd(args):
         """Find the greatest common divisor using Euclid's Algorithm.
 
         """
-        L = priority_queue()
+        L = priority_queue([])
         for n in args:
                 L.add(n)
         while L.size > 1:
