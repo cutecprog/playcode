@@ -12,7 +12,7 @@ def gcd(args):
         """Find the greatest common divisor using Euclid's Algorithm.
 
         """
-        L = priority_queue([])
+        L = priority_queue()
         for n in args:
                 L.add(n)
         while L.size > 1:
@@ -41,9 +41,13 @@ class priority_queue(object):
         """Pop from front of queue. All items in numeric order largest first.
 
         """
-        def __init__(self, values = []):
-                self.data = values
-                self.size = len(values)
+        def __init__(self, values = None):
+                if values is None:
+                        self.data = []
+                        self.size = 0
+                else:
+                        self.data = values
+                        self.size = len(values)
         def pop(self):
                 tmp = self.data[self.size-1]
                 self.data = self.data[:self.size-1]
