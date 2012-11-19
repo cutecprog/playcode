@@ -20,11 +20,9 @@ a = [[1.5, 0.387298334621],
 
 
 def main():
-        r = .8
-        f = lambda h: sqrt(2*h*r-h**2)
-        #print sqrt(0)
-        print f(1.6)
-        print riemann_sum(f, 0, 2*r, "r")
+        s(0, 4, lambda x: (2 if x%2 else 1)*(.5)**x)
+        print "2.5625"
+        #r = 1.9
         #print simpson_rule(lambda h: 1000*9.8*2*sqrt(2*h*r-h**2), 0, 2*r)
 
 def simpson_rule2(f, width):
@@ -64,6 +62,13 @@ def riemann_sum(f, low, high, mode = "m", n = 256.):
         This function estimates the integral from low to high of a function
         using mode bound rectangles with a certain resolution n.
 
+        UBF0 (Ugly Bug Fix 0):
+        In rare insistence in right bound approximation mode when high value
+        is equal to the orignal functions domain. There is a slight possibility
+        that the final i value will be ever so slightly above the high value
+        and therefore the domain. This is so slight that str() ignores the
+        extra. So float(str(i)) rounds it down to the domain.
+
         """
         total = 0
         width = float((high - low)) / n
@@ -75,8 +80,10 @@ def riemann_sum(f, low, high, mode = "m", n = 256.):
                 i += width / 2
                 high += width / 2
         while i < high:
-                print i, f(1.6)
-                total += f(i)
+                try:
+                        total += f(i)
+                except:
+                        total += f(float(str(i))) # UBF0
                 i += width
         return total * width
 
@@ -88,6 +95,16 @@ def d(f, default_width = 0.1e-5):
         def df(x, width = default_width):
                 return ( f(x + width / 2) - f(x - width / 2) ) / width
         return df
+
+def s(init, final, sequence):
+        """
+        Compute a finite sum of a sequence (sigma).
+
+        """
+        S = 0
+        for n in range(init, final+1):
+                S += sequence(n)
+        return S
 
 if __name__=="__main__":
         from math import *
