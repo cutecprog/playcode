@@ -20,7 +20,7 @@ a = [[1.5, 0.387298334621],
 
 
 def main():
-        s(0, 4, lambda x: (2 if x%2 else 1)*(.5)**x)
+        print s(0, 4, lambda x: (2 if x%2 else 1)*(.5)**x)
         print "2.5625"
         #r = 1.9
         #print simpson_rule(lambda h: 1000*9.8*2*sqrt(2*h*r-h**2), 0, 2*r)
