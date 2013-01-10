@@ -50,7 +50,7 @@ for n in parser.data:
         if i%10 == 0 or i%10 == 1:
                 data.append(n.strip() + ": ")
         else:
-                data2.append(n)
+                data2.append(n.strip())
         i += 1
 
 i = 0
