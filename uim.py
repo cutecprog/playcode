@@ -10,7 +10,6 @@ def main():
         print 'Argument List:', argv
         f = open(argv[1], "r")
         print f.read()
-        #print test
         f.close()
 
 def csv_to_list(csv_str):
