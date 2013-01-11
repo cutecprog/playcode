@@ -20,12 +20,16 @@ def csv_to_list(csv_str):
         >>> csv_to_list("a2,,c2,d2,,")
         [['a2', '', 'c2', 'd2', '', '']]
         >>> csv_to_list(",b3,,d3,,f3")
-        [['','b3','','d3','','f3']]
+        [['', 'b3', '', 'd3', '', 'f3']]
         >>> csv_to_list(",,,,e4,")
         [['', '', '', '', 'e4', '']]
         
         """
-        pass
+        lines = csv_str.split('\n')
+        csv_data = []
+        for l in lines:
+                csv_data.append(l.split(','))
+        return csv_data
 
 if __name__=="__main__":
         import doctest
