@@ -9,7 +9,7 @@ def main():
         print 'Number of arguments:', len(argv), 'arguments.'
         print 'Argument List:', argv
         f = open(argv[1], "r")
-        print f.read()
+        print csv_to_list(f.read())
         f.close()
 
 def csv_to_list(csv_str):
@@ -25,7 +25,7 @@ def csv_to_list(csv_str):
         [['', '', '', '', 'e4', '']]
         
         """
-        lines = csv_str.split('\n')
+        lines = csv_str.strip('\n').split('\n')
         csv_data = []
         for l in lines:
                 csv_data.append(l.split(','))
