@@ -9,10 +9,12 @@ def main():
         print 'Number of arguments:', len(argv), 'arguments.'
         print 'Argument List:', argv
         f = open(argv[1], "r")
-        print csv_to_list(f.read())
+        data = csv_to_list(f.read(), '\t')
+        for i in range(0,16):       
+                print data
         f.close()
 
-def csv_to_list(csv_str):
+def csv_to_list(csv_str, dem = ','):
         """Convert a str in CSV format into a 2d list.
         
         >>> csv_to_list("a1,b1,c1,d1,e1,")
@@ -28,7 +30,7 @@ def csv_to_list(csv_str):
         lines = csv_str.strip('\n').split('\n')
         csv_data = []
         for l in lines:
-                csv_data.append(l.split(','))
+                csv_data.append(l.strip('\r').split(dem))
         return csv_data
 
 if __name__=="__main__":
