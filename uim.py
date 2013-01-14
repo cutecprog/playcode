@@ -4,14 +4,27 @@ from sys import argv
 
 #test = [['a1','b1','c1','d1','e1',''],['a2','','c2','d2','',''],['','b3','','d3','','f3'],['','','','','e4','']]
 
+class row(object):
+        def __init__(self, lastname, firstname, pvs_id, ftm_id):
+                self.lastname = lastname
+                self.firstname = firstname
+                self.pvs_id = pvs_id
+                self.ftm_id = ftm_id
+        def __str__(self):
+                return "%s,%s,%s,%s" % (self.lastname, self.firstname, self.pvs_id, self.ftm_id)
+        
+
 def main():
         print "Unique ID Matcher"
         print 'Number of arguments:', len(argv), 'arguments.'
         print 'Argument List:', argv
         f = open(argv[1], "r")
         data = csv_to_list(f.read(), '\t')
-        for i in range(0,16):       
-                print data
+        candidate_name = []
+        for n in data[1:]:
+                if n[4] == "2013":
+                        candidate_name.append(n[5])
+                        print n[5]
         f.close()
 
 def csv_to_list(csv_str, dem = ','):
