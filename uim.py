@@ -12,7 +12,6 @@ class row(object):
                 self.ftm_id = ftm_id
         def __str__(self):
                 return "%s,%s,%s,%s" % (self.lastname, self.firstname, self.pvs_id, self.ftm_id)
-        
 
 def main():
         print "Unique ID Matcher"
@@ -26,6 +25,16 @@ def main():
                         candidate_name.append(n[5])
                         print n[5]
         f.close()
+        
+def test():
+        """Test doctest!
+        
+        >>> print test()
+        woof
+        around
+        
+        """
+        return "woof\naround"
 
 def csv_to_list(csv_str, dem = ','):
         """Convert a str in CSV format into a 2d list.
