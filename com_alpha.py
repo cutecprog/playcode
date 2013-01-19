@@ -1,11 +1,17 @@
+import pygtk
+import gtk
 
 def main():
-        S = a = raw_input()
+        pygtk.require('2.0')
+        cb = gtk.clipboard_get()
+        cb.set_text(com_alpha(cb.wait_for_text()))
+        cb.store()
+        '''S = a = raw_input()
         while a != "":
                 a = raw_input()
                 S += '\n' + a
         S = S.strip('\n')
-        print com_alpha(S)
+        print com_alpha(S)'''
 
 def com_alpha(text):
         lines = text.split('\n')
