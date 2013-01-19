@@ -1,5 +1,6 @@
 import pygtk
 import gtk
+import re
 
 def main():
         pygtk.require('2.0')
@@ -15,12 +16,16 @@ def main():
                 print "Error: Please contact Andrea at andi.grooms@gmail.com"
 
 def com_alpha(text):
+        """Read in commitee text field and order it appropriately.
+        
+        """
         lines = text.strip('\n').split('\n')
-        present = []
-        former = []
-        no_date = []
+        present = [] # list of current commitees
+        former = []  # list of former commitees
+        no_date = [] # list of commitees where the date served is unknown
         for line in lines:
-                if line[len(line)-1] == 't':
+                tmp = re.split('[-| ]', line)
+                if tmp[len(tmp)-1] == 'present':
                         present.append(line.split(', '))
                 elif line[len(line)-1].isdigit():
                         former.append(line.split(', '))
