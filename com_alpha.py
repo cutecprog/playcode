@@ -4,14 +4,11 @@ import gtk
 def main():
         pygtk.require('2.0')
         cb = gtk.clipboard_get()
-        cb.set_text(com_alpha(cb.wait_for_text()))
-        cb.store()
-        '''S = a = raw_input()
-        while a != "":
-                a = raw_input()
-                S += '\n' + a
-        S = S.strip('\n')
-        print com_alpha(S)'''
+        try:
+                cb.set_text(com_alpha(cb.wait_for_text()))
+                cb.store()
+        except:
+                print "Error: Nothing copied"
 
 def com_alpha(text):
         lines = text.split('\n')
