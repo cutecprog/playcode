@@ -4,17 +4,65 @@ import urllib2
 # create a subclass and override the handler methods
 class MyHTMLParser(HTMLParser):
         data = []
+        data2 = []
+        good_data = [False, False]
+        index = -1
         def handle_starttag(self, tag, attrs):
-        	pass
+                if tag == "h4":
+                        #print "h4"
+                        if self.good_data[1]:
+                                self.data.append([])
+                        else:
+                                self.data2.append([])
+                        self.index += 1
+                if len(attrs) == 0:
+                        return
+                for items in attrs:
+                        for i in items:
+                                if i == "tabFunding":
+                                        self.good_data[1] = True
+                                        self.index = -1
+                                elif i == "tabGrants":
+                                        self.good_data[1] = False
+                                        self.index = -1
+                                if i == "amount tip":
+                                      self.good_data[0] = True 
+        	#self.data2.append(attrs)
                 #print "Encountered a start tag:", tag
+        handle_starttag.index = -1
         def handle_endtag(self, tag):
 	        pass
                 #print "Encountered an end tag :", tag
         def handle_data(self, data):
-                if data != ' ':
-                        self.data.append(data)
+                if self.good_data[0]:
+                        if self.good_data[1]:
+                                self.data[self.index].append(data)
+                        else:
+                                self.data2[self.index].append(data)
+                        self.good_data[0] = False
 
+def sum_data(data):
+        S = 0
+        for n in data:
+                S += float(''.join(n.strip('$').split(',')))
+        return S
 
+parser = MyHTMLParser()
+
+u = urllib2.urlopen('http://sunlightfoundation.com/about/funding/')
+s = ' '.join(u.read().split())
+parser.feed(s)
+print parser.data
+print parser.data2
+for d in parser.data:
+        print sum_data(d)
+print "---"
+for d in parser.data2:
+        print sum_data(d)
+#print sum_data(parser.data)
+#print sum_data(parser.data2)
+
+'''
 def state_abbr(s):
         value = [('AK', 'Alaska'), ('AL', 'Alabama'), ('AZ', 'Arizona'), ('AR', 'Arkansas'), ('CA', 'California'), ('CO', 'Colorado'), ('CT', 'Connecticut'), ('DE', 'Delaware'), ('FL', 'Florida'), ('GA', 'Georgia'), ('HI', 'Hawaii'), ('ID', 'Idaho'), ('IL', 'Illinois'), ('IN', 'Indiana'), ('IA', 'Iowa'), ('KS', 'Kansas'), ('KY', 'Kentucky'), ('LA', 'Louisiana'), ('ME', 'Maine'), ('MD', 'Maryland'), ('MA', 'Massachusetts'), ('MI', 'Michigan'), ('MN', 'Minnesota'), ('MS', 'Mississippi'), ('MO', 'Missouri'), ('MT', 'Montana'), ('NE', 'Nebraska'), ('NV', 'Nevada'), ('NH', 'New Hampshire'), ('NJ', 'New Jersey'), ('NM', 'New Mexico'), ('NY', 'New York'), ('NC', 'North Carolina'), ('ND', 'North Dakota'), ('OH', 'Ohio'), ('OK', 'Oklahoma'), ('OR', 'Oregon'), ('PA', 'Pennsylvania'), ('RI', 'Rhode Island'), ('SC', 'South Carolina'), ('SD', 'South Dakota'), ('TN', 'Tennessee'), ('TX', 'Texas'), ('UT', 'Utah'), ('VT', 'Vermont'), ('VA', 'Virginia'), ('WA', 'Washington'), ('DC', 'Washington D.C.'), ('WV', 'West Virginia'), ('WI', 'Wisconsin'), ('WY', 'Wyoming')]
         for n in value:
@@ -79,4 +127,4 @@ for n in data:
         j += 1
 
 for n in data:
-        print n
+        print n'''
