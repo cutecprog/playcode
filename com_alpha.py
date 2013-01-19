@@ -4,14 +4,18 @@ import gtk
 def main():
         pygtk.require('2.0')
         cb = gtk.clipboard_get()
+        cb_text = cb.wait_for_text()
+        if cb_text == None:
+                print "Error: Nothing copied"
+                return
         try:
-                cb.set_text(com_alpha(cb.wait_for_text()))
+                cb.set_text(com_alpha(cb_text))
                 cb.store()
         except:
-                print "Error: Nothing copied"
+                print "Error: Please contact Andrea at andi.grooms@gmail.com"
 
 def com_alpha(text):
-        lines = text.split('\n')
+        lines = text.strip('\n').split('\n')
         present = []
         former = []
         no_date = []
