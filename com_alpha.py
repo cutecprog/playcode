@@ -1,9 +1,6 @@
-import pygtk
-import gtk
-import re
+from re import split
 
 def main():
-        pygtk.require('2.0')
         cb = gtk.clipboard_get()
         cb_text = cb.wait_for_text()
         if cb_text == None:
@@ -31,22 +28,26 @@ def com_alpha(text):
                         text += '\n'
                 return text
         lines = text.strip('\n').split('\n')
-        present = [] # list of current commitees
+        current = [] # list of current commitees
         former = []  # list of former commitees
         no_date = [] # list of commitees where the date served is unknown
         for line in lines:
-                tmp = re.split('[-| ]', line)
-                if tmp[len(tmp)-1] == 'present':
-                        present.append(line.split(', '))
-                elif line[len(line)-1].isdigit():
+                words = split('[-| ]', line)
+                last_word = words[len(words)-1]
+                if last_word == 'present':
+                        current.append(line.split(', '))
+                elif words[len(words)-1].isdigit():
                         former.append(line.split(', '))
                 else:
                         no_date.append(line.split(', '))
-        present.sort(key = lambda x: x[len(x)-2])
+        current.sort(key = lambda x: x[len(x)-2]) # Sort by commitee name
         former.sort(key = lambda x: x[len(x)-2])
         no_date.sort(key = lambda x: x[len(x)-1])
-        new_text = list_to_string(present)+list_to_string(former)+list_to_string(no_date)
-        return new_text
+        return list_to_string(current) + list_to_string(former) \
+                + list_to_string(no_date)
 
 if __name__ == "__main__":
+        import pygtk
+        import gtk
+        pygtk.require('2.0')
         main()
