@@ -22,8 +22,6 @@ def com_alpha(text):
                         former.append(line.split(', '))
                 else:
                         no_date.append(line.split(', '))
-        key = lambda x: x[len(x)-1]
-        key2 = lambda x: x[len(x)-2]
         present.sort(key = lambda x: x[len(x)-2])
         former.sort(key = lambda x: x[len(x)-2])
         no_date.sort(key = lambda x: x[len(x)-1])
