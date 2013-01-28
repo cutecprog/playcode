@@ -6,11 +6,8 @@ def main():
         if cb_text == None:
                 print "Error: Nothing copied"
                 return
-        try:
-                cb.set_text(com_alpha(cb_text))
-                cb.store()
-        except:
-                print "Error: Please contact Andrea at andi.grooms@gmail.com"
+        cb.set_text(com_alpha(cb_text))
+        cb.store()
 
 def com_alpha(text):
         """Read in commitee text field and order it appropriately.
@@ -30,7 +27,8 @@ def com_alpha(text):
         lines = text.strip('\n').split('\n')
         current = [] # list of current commitees
         former = []  # list of former commitees
-        no_date = [] # list of commitees where the date served is unknown
+        current_no_date = [] # list of current commitees where the date served is unknown
+        former_no_date = []  # list of former commitees where the date served is unknown
         for line in lines:
                 words = split('[-| ]', line)
                 last_word = words[len(words)-1]
@@ -39,12 +37,17 @@ def com_alpha(text):
                 elif words[len(words)-1].isdigit():
                         former.append(line.split(', '))
                 else:
-                        no_date.append(line.split(', '))
+                        if words[0].lower() == "former" or words[0].lower() == "retired":
+                                former_no_date.append(line.split(', '))
+                        else:
+                                current_no_date.append(line.split(', '))
         current.sort(key = lambda x: x[len(x)-2]) # Sort by commitee name
         former.sort(key = lambda x: x[len(x)-2])
-        no_date.sort(key = lambda x: x[len(x)-1])
+        former.sort(key = lambda x: int(x[len(x)-1].split('-')[1]))
+        current_no_date.sort(key = lambda x: x[len(x)-1])
+        former_no_date.sort(key = lambda x: x[len(x)-1])
         return list_to_string(current) + list_to_string(former) \
-                + list_to_string(no_date)
+                + list_to_string(current_no_date) + list_to_string(former_no_date)
 
 if __name__ == "__main__":
         import pygtk
