@@ -2,8 +2,8 @@ def main():
         print "Main"
         ps = load_sieve()
         itopfi(3)
-        tmp = input()
-        itopfi(3,ps)
+        tmp = raw_input()
+        itopfi(3,ps[:-1])
 
 def load_sieve(path = './prime_sieve'):
         """Load and return list (sieve) from a json data file.
