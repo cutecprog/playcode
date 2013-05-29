@@ -1,9 +1,8 @@
 def main():
         print "Main"
         ps = load_sieve()
-        itopfi(3)
-        tmp = raw_input()
-        itopfi(3,ps[:-1])
+        for i in range(1, 30):
+                print itopfi(i)
 
 def load_sieve(path = './prime_sieve'):
         """Load and return list (sieve) from a json data file.
@@ -18,11 +17,19 @@ def load_sieve(path = './prime_sieve'):
         "data file format incorrect" + " load_sieve(" + path + ") failed."
         return sieve
 
-def itopfi(integer, prime_sieve = load_sieve()):
+def itopfi(n, prime_sieve = load_sieve()):
         """Convert integer to string of prime factors.
 
         """
-        print prime_sieve
+        pfi = ""
+        for prime in prime_sieve:
+                while(n%prime == 0):
+                        pfi += "1"
+                        n /= prime
+                if n == 1:
+                        break
+                pfi += "0"
+        return pfi
 
 if __name__ == "__main__":
         main()
