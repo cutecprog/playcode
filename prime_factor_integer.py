@@ -2,10 +2,11 @@ def main():
         from random import randint
         print "Main"
         ps = load_sieve()
-        for i in range(0, 10):
-                n = randint(1,10008)
-                print n, itopfi(n)
-        #print len(ps), 2**len(ps)
+        last = 0
+        for p in ps:
+                print '\n' * (p - last - 1)
+                print 'X' * p
+                last = p
 
 def load_sieve(path = './prime_sieve'):
         """Load and return list (sieve) from a json data file.
