@@ -1,7 +1,7 @@
 def main():
         print "Main"
         ps = load_sieve()
-        for i in range(1, 30):
+        for i in range(1000000, 1000100):
                 print itopfi(i)
 
 def load_sieve(path = './prime_sieve'):
