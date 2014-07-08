@@ -9,10 +9,11 @@ def proper_factors(n):
         [1, 2, 4, 7, 14]
 
         """
-        pf = []
-        for i in range(2, n/2):
+        pf = [1]
+        for i in range(2, n):
                 if n%i == 0:
-                        pf += i
+                        pf.append(i)
+        
         return pf
 
 if __name__ == "__main__":
