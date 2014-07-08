@@ -39,5 +39,7 @@ def ascuii_map(condition, symbol, shape):
 
 if __name__ == "__main__":
         from doctest import testmod
+        from os import system
+        system("clear")
         testmod()
         main()
