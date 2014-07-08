@@ -3,7 +3,8 @@ def main():
         print sum(proper_factors(28))
         print deficient(28)
         print perfect(28)
-        print ascuii_map([(lambda(n): n%2 == 0), nil], [' ', 'X'], ['list', 0, 12, 3])
+        abridged_abundant = lambda(x): abundant(x) and x%6 != 0 and x%28 != 0 and x%496 != 0
+        print ascuii_map([('=', perfect), ('X', abridged_abundant), (' ', nil)], ['list', 2, 1000, 60])
 
 def proper_factors(n):
         """Calculate proper factors of n.
@@ -21,21 +22,38 @@ def proper_factors(n):
 
 deficient = lambda(n): sum(proper_factors(n)) < n
 perfect = lambda(n): sum(proper_factors(n)) == n
+abundant = lambda(n): sum(proper_factors(n)) > n
 nil = lambda(n): True # for else condition
 
-def ascuii_map(condition, symbol, shape):
+def ascuii_map(symbols, shape):
         """Make map of range numbers using ACUII symbols.
         
         Determine symbol in space with associated condition. Determine what
         number a space represents with shape.
 
-        >>> ascuii_map([(lambda(n): n%2 == 0), nil], [' ', 'X'], ['list', 0, 12, 3])
-         X 
-        X X
-         X
-        X X
+        >>> print ascuii_map([('0', lambda(n): n%2 == 0), ('X', nil)], ['list', 0, 12, 3])
+        0X0
+        X0X
+        0X0
+        X0X
+
         """
-        return "Map time!"
+        if shape[0] != 'list':
+                return "Error: Bad shape type"
+
+        low = shape[1]
+        high = shape[2]
+        row_size = shape[3]
+        ascuii_map = ""
+
+        for i in range(low, high):
+                if (i - low) % row_size == 0 and (i - low) != 0:
+                        ascuii_map += '|\n'
+                for symbol in symbols:
+                        if symbol[1](i):
+                                ascuii_map += symbol[0]
+                                break;
+        return ascuii_map
 
 if __name__ == "__main__":
         from doctest import testmod
