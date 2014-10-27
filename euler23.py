@@ -1,10 +1,15 @@
+from sympy import factorint
+
 def main():
         print "euler23.py"
         print sum(proper_factors(28))
         print deficient(28)
         print perfect(28)
-        abridged_abundant = lambda(x): abundant(x) and x%6 != 0 and x%28 != 0 and x%496 != 0
-        print ascuii_map([('=', perfect), ('X', abridged_abundant), (' ', nil)], ['list', 2, 1000, 60])
+        print factorint(28)
+        abridged_abundant = lambda(x): x%6 != 0 and x%28 != 0 and x%496 != 0 and abundant(x)
+        print ascuii_map([('X', abridged_abundant), (' ', nil)], ['list', 0, 8000, 60])
+        #for i in range(2, 100):
+        #        print i, sum(proper_factors(i)), ' ' if deficient(i) else '\tX'
 
 def proper_factors(n):
         """Calculate proper factors of n.
@@ -32,10 +37,10 @@ def ascuii_map(symbols, shape):
         number a space represents with shape.
 
         >>> print ascuii_map([('0', lambda(n): n%2 == 0), ('X', nil)], ['list', 0, 12, 3])
-        0X0
-        X0X
-        0X0
-        X0X
+        0X0|
+        X0X|
+        0X0|
+        X0X<--
 
         """
         if shape[0] != 'list':
@@ -53,7 +58,7 @@ def ascuii_map(symbols, shape):
                         if symbol[1](i):
                                 ascuii_map += symbol[0]
                                 break;
-        return ascuii_map
+        return ascuii_map+"<--"
 
 if __name__ == "__main__":
         from doctest import testmod
